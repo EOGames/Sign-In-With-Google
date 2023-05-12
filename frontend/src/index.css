@@ -1,0 +1,133 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #737171;
+
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+#root
+{
+  width: 100vw;
+  height: 100vh;
+}
+
+.App
+{
+  background-color: #737171 ;
+  width: 100vw;
+  height: 100vh;
+}
+
+.tableHolder
+{
+    width: 100%;
+    height: 70%;
+    display: flex;
+    background-color: #737171;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;  
+    
+}
+
+.database_Table
+{
+  /* margin: 5%; */
+  width: 70% !important;
+  height: 90vh !important;
+  
+}
+
+
+
+
+.bgColorSkyBlue
+{
+  background-color: skyblue;
+  /* color: white !important; */
+  font-size: 2rem !important;
+
+}
+
+.evenRow
+{
+  background-color: hsl(0, 0%, 93%);
+}
+
+.oddRow
+{
+  background-color: rgb(216, 217, 218);
+}
+
+.MuiTableCell-root {
+  height: 7vh !important;
+  padding: 0px 1vw !important;
+  font-size: 0.7rem !important;
+  text-align: center !important ;
+  }
+  
+  .MuiButtonBase-root{
+  height: 10px !important;
+  }
+
+  .serchBox
+  {
+    padding: 1% !important;
+    margin-top: 2%;
+    border: none;
+    width: 30vw;
+  }
+
+
+
+  #signInDiv
+  {
+    background-color: #737171 ;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+  }
+
+  .logLogout
+  {
+    background-color: #b7b7b7;
+    width: fit-content;
+    height: 7vh;
+    color: black;
+    text-transform: capitalize;
+    display: flex;
+    margin-bottom: 1vh;
+    align-items: center;
+  }
+
+  .logLogout img
+  {
+    height: 29px;
+  }
+
+  .logLogout_child
+  {
+    margin: 0px 1vw ;
+  }
+  
+  .loginMsg
+  {
+    
+    text-align: center;
+    background-color: rgb(2, 196, 221);
+    padding: 20px;
+    margin: 0;   
+  }
+
+  
+  

@@ -1,0 +1,232 @@
+[
+
+    {
+        "model": "iPhone 13 Pro",
+        "brand": "Apple",
+        "price": 999
+      },
+      {
+        "model": "Galaxy S21",
+        "brand": "Samsung",
+        "price": 799
+      },
+      {
+        "model": "Pixel 6 Pro",
+        "brand": "Google",
+        "price": 899
+      },
+      {
+        "model": "OnePlus 9 Pro",
+        "brand": "OnePlus",
+        "price": 969
+      },
+      {
+        "model": "Mi 11 Ultra",
+        "brand": "Xiaomi",
+        "price": 1099
+      },
+      
+
+    {
+        "model" : "Noob 1",
+        "brand": "Noob",
+        "price": "10000"
+    },
+    {
+        "model" : "Super Noob 8",
+        "brand": "Noob",
+        "price": "12000"
+    },
+    {
+        "model" : "Noob 10",
+        "brand": "Noob",
+        "price": "20500"
+    },
+    {
+        "model" : "No One",
+        "brand": "Uknown",
+        "price": "5000"
+    },
+    {
+        "model" : "Discarded One",
+        "brand": "Uknown",
+        "price": "7000"
+    },
+    {
+        "model" : "Trash",
+        "brand": "Uknown",
+        "price": "2500"
+    },
+
+
+    {
+        "model" : "Red",
+        "brand": "Colors Diffrent",
+        "price": "6000"
+    },
+    {
+        "model" : "Green",
+        "brand": "Colors Diffrent",
+        "price": "7700"
+    },
+    {
+        "model" : "Yellow",
+        "brand": "Colors Diffrent",
+        "price": "8800"
+    },
+    {
+        "model" : "White",
+        "brand": "Colors Diffrent",
+        "price": "9000"
+    },
+    {
+        "model" : "Orange 1",
+        "brand": "Orange",
+        "price": "12500"
+    },
+    {
+        "model" : "Orange 2",
+        "brand": "Orange",
+        "price": "30500"
+    },
+    {
+        "model" : "Orange Max",
+        "brand": "Orange",
+        "price": "45000"
+    },
+    {
+        "model" : "Orange Red",
+        "brand": "Orange",
+        "price": "7000"
+    },
+    {
+        "model" : "Orange Little",
+        "brand": "Orange",
+        "price": "2500"
+    },
+
+
+    {
+        "model": "iPhone 13 Pro",
+        "brand": "Apple",
+        "price": 999
+      },
+      {
+        "model": "iPhone 13",
+        "brand": "Apple",
+        "price": 799
+      },
+      {
+        "model": "iPhone SE (2022)",
+        "brand": "Apple",
+        "price": 399
+      },
+      {
+        "model": "Galaxy S21",
+        "brand": "Samsung",
+        "price": 799
+      },
+      {
+        "model": "Galaxy Note 20 Ultra",
+        "brand": "Samsung",
+        "price": 1299
+      },
+      {
+        "model": "Galaxy A52 5G",
+        "brand": "Samsung",
+        "price": 499
+      },
+      {
+        "model": "Pixel 6 Pro",
+        "brand": "Google",
+        "price": 899
+      },
+      {
+        "model": "Pixel 5a",
+        "brand": "Google",
+        "price": 449
+      },
+      {
+        "model": "Pixel 4a 5G",
+        "brand": "Google",
+        "price": 499
+      },
+      {
+        "model": "OnePlus 9 Pro",
+        "brand": "OnePlus",
+        "price": 969
+      },
+      {
+        "model": "OnePlus 9",
+        "brand": "OnePlus",
+        "price": 729
+      },
+      {
+        "model": "OnePlus Nord CE",
+        "brand": "OnePlus",
+        "price": 329
+      },
+      {
+        "model": "Mi 11 Ultra",
+        "brand": "Xiaomi",
+        "price": 1099
+      },
+      {
+        "model": "Mi 11 Lite 5G",
+        "brand": "Xiaomi",
+        "price": 399
+      },
+      {
+        "model": "Redmi Note 11 Pro",
+        "brand": "Xiaomi",
+        "price": 499
+      },
+      {
+        "model": "ZenFone 8",
+        "brand": "Asus",
+        "price": 699
+      },
+      {
+        "model": "ROG Phone 5",
+        "brand": "Asus",
+        "price": 999
+      },
+      {
+        "model": "ZenFone 7 Pro",
+        "brand": "Asus",
+        "price": 699
+      },
+      {
+        "model": "Mi Mix 4",
+        "brand": "Xiaomi",
+        "price": 799
+      },
+      {
+        "model": "Black Shark 4 Pro",
+        "brand": "Xiaomi",
+        "price": 999
+      },
+      {
+        "model": "Galaxy Z Flip 3",
+        "brand": "Samsung",
+        "price": 999
+      },
+      {
+        "model": "Galaxy Z Fold 3",
+        "brand": "Samsung",
+        "price": 1799
+      },
+      {
+        "model": "Galaxy S21 FE",
+        "brand": "Samsung",
+        "price": 699
+      },
+      {
+        "model": "Mi 11T Pro",
+        "brand": "Xiaomi",
+        "price": 599
+      }
+
+
+    
+]
