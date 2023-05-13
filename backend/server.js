@@ -7,7 +7,10 @@ const port = process.env.PORT_SERVER_BACKEND;
 
 const cors = require('cors');
 
-
+app.post('/getAcessCode',(req,res)=>
+{
+    res.send(res.body);
+});
 
 
 app.use(cors());
