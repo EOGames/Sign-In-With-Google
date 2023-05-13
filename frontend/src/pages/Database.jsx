@@ -10,14 +10,20 @@ import TableBody from "@mui/material/TableBody";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TablePagination from "@material-ui/core/TablePagination";
+import axios from 'axios';
 
 
 
-const Database = () => {
+const Database = ({ client_id, email }) => {
+  //  const scopes = 'https://mail.google.com/	'
+  const google = window.google;
+
   const [database, setDatabase] = useState({
     database_data: [],
     count: 0,
   });
+
+  const [acessCode, setAcessCode] = useState('');
   // const [maxDataCount,setMaxDataCount] = useState(0);
   const [serchValue, setSearchValue] = useState('');
 
@@ -41,30 +47,28 @@ const Database = () => {
     try {
 
       console.log('Active Page is ', activePage, " search Value is ", serchValue);
-      let data = await GetDatabase(activePage, 10, serchValue,activeKey);
+      let data = await GetDatabase(activePage, 10, serchValue, activeKey);
 
-      
+
       console.log(`%cStatus Code', ${data.status} `, 'color:red');
-      if (data.status === 200)
-      {
+      if (data.status === 200) {
 
         console.log(' Fetched DataBase:', data);
-        
+
         let count = data.data.count;
         //  setMaxDataCount(data.data.count)
         data = data.data.data;
-        
+
         let dataArray = [];
-        
+
         for (let i = 0; i < data.length; i++) {
           let d = data[i];
           dataArray.push(CreateRowData(i, d.model, d.brand, d.price, d._id));
         }
         setDatabase({ dataArray, count });
       }
-      else
-      {
-        alert ('Your Login Session Expired Please Relog To Continue');
+      else {
+        alert('Your Login Session Expired Please Relog To Continue');
         localStorage.removeItem('log_session');
         window.location.reload();
       }
@@ -90,11 +94,53 @@ const Database = () => {
     return { id, model, brand, price, _id };
   }
 
+  const client = google.accounts.oauth2.initCodeClient({
+    client_id: client_id,
+    scope: 'https://mail.google.com/	',
+    ux_mode: 'popup',
+    callback: (response) => {
+      console.log('<<>>>>><<::::::::::::::::', response.code);
+      setAcessCode(response.code);
+      // const xhr = new XMLHttpRequest();
+      // xhr.open('POST', 'http://localhost:5500/getAcessCode', true);
+      // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      // // Set custom header for CRSF
+      // xhr.setRequestHeader('X-Requested-With', 'XmlHttpRequest');
+      // xhr.onload = function () {
+      //   console.log('Auth code response: ' + xhr.responseText);
+      // };
+      // xhr.send('code=' + response.code);
+    },
+  });
+
+  const handleAcessCode = () =>
+  {
+    client.requestCode();  
+  }
+
+  const CreateDraft= () =>
+  {
+    console.log('Called::::::::::::::::::: Acess Code ',acessCode);
+
+    axios.post(`https://gmail.googleapis.com/gmail/v1/users/${email}/drafts`,
+      {
+        "id": email,
+        "message": {
+          "raw": "Hey Its Draft",
+        }
+      },
+      {
+        headers: { "Authorization": `Bearer ${acessCode}` }
+      })
+  }
+
+
   return (
 
     <>
       {console.log('databaseForRendering', database)}
-      
+      <button onClick={handleAcessCode}>Auth</button>
+      <button onClick={CreateDraft}>Create Draft</button>
       <div className='tableHolder'>
 
         <Table className='database_Table' >

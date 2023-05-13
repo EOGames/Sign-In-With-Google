@@ -7,7 +7,7 @@ import jwt_token from 'jwt-decode';
 function App() {
   const [user, setUser] = useState({});
   const client_id = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-
+ let google;
   // console.log('CLIENT ID:',client_id);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ function App() {
 
 
   const checkIfGoogleExisit = () => {
-    const google = window.google;
+     google = window.google;
 
     setTimeout(() => {
       try {
@@ -37,7 +37,7 @@ function App() {
           google.accounts.id.initialize(
             {
               client_id: client_id,
-              callback: handleLoginCallbackResponse
+              callback: handleLoginCallbackResponse,
             });
 
           google.accounts.id.renderButton(
@@ -60,7 +60,7 @@ function App() {
 
   const handleLoginCallbackResponse = async (response) => {
     // console.log("Encoded JWT ID Token: ", response.credential);
-    console.log(response);
+    console.log('res::::>>>>>>>>>>',response);
 
     try {
       let data = await googleLogin(response.credential);
@@ -116,7 +116,7 @@ function App() {
 
       <div>
         {
-          user.userName ? <Database /> : <p className="loginMsg">Please Log In To Continue</p>
+          user.userName ? <Database  client_id = {client_id} email = {user.email} /> : <p className="loginMsg">Please Log In To Continue</p>
 
         }
       </div>
