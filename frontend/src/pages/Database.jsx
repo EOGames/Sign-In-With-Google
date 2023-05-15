@@ -10,7 +10,10 @@ import TableBody from "@mui/material/TableBody";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TablePagination from "@material-ui/core/TablePagination";
-import axios from 'axios';
+
+import { SendMail } from "../api/sendMail.api";
+import { useRef } from 'react';
+
 
 
 
@@ -28,6 +31,12 @@ const Database = ({ client_id, email }) => {
   const [serchValue, setSearchValue] = useState('');
 
   let [activePage, setActivePage] = useState(0);
+
+  const receiversEmail = useRef ('');
+  const subject = useRef('');
+  const msgToSend = useRef('');
+
+  const [msgInterfaceStatus,setMsgInterfaceStatus] = useState(false);
 
   const handleChangePage = (event, newPage) => {
     console.log(`Event:${event} newPage:${newPage}`);
@@ -84,54 +93,40 @@ const Database = ({ client_id, email }) => {
   }, [activePage, serchValue]);
 
 
-  // const GoogleResponse = async (response) => {
-  //   let data = await response;
-  //   console.log('google Response ', data);
-
-  // }
 
   const CreateRowData = (id, model, brand, price, _id) => {
     return { id, model, brand, price, _id };
   }
 
+  const acessCodeResponseHandler = (response)=>
+  {
+    console.log('<<>>>>><<::::::::::::::::', response.code);
+    setAcessCode(response.code); 
+    setMsgInterfaceStatus(true);
+  }
+  
   const client = google.accounts.oauth2.initCodeClient({
     client_id: client_id,
     scope: 'https://mail.google.com/	',
     ux_mode: 'popup',
-    callback: (response) => {
-      console.log('<<>>>>><<::::::::::::::::', response.code);
-      setAcessCode(response.code);
-      // const xhr = new XMLHttpRequest();
-      // xhr.open('POST', 'http://localhost:5500/getAcessCode', true);
-      // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-      // // Set custom header for CRSF
-      // xhr.setRequestHeader('X-Requested-With', 'XmlHttpRequest');
-      // xhr.onload = function () {
-      //   console.log('Auth code response: ' + xhr.responseText);
-      // };
-      // xhr.send('code=' + response.code);
-    },
+    callback: acessCodeResponseHandler,
   });
 
-  const handleAcessCode = () =>
-  {
-    client.requestCode();  
+ 
+  const handleAcessCode = () => {
+    client.requestCode();
   }
 
-  const CreateDraft= () =>
-  {
-    console.log('Called::::::::::::::::::: Acess Code ',acessCode);
+  const CreateDraft = async () => {
+    console.log('Called::::::::::::::::::: Acess Code ', acessCode);
 
-    axios.post(`https://gmail.googleapis.com/gmail/v1/users/${email}/drafts`,
-      {
-        "id": email,
-        "message": {
-          "raw": "Hey Its Draft",
-        }
-      },
-      {
-        headers: { "Authorization": `Bearer ${acessCode}` }
-      })
+    
+    let data = await SendMail(acessCode, email, receiversEmail.current.value, msgToSend.current.value, subject.current.value);
+    receiversEmail.current.value = '';
+    subject.current.value ='';
+    msgToSend.current.value ='';
+    setMsgInterfaceStatus(false);
+    console.log('after mail Sent',data);
   }
 
 
@@ -140,7 +135,18 @@ const Database = ({ client_id, email }) => {
     <>
       {console.log('databaseForRendering', database)}
       <button onClick={handleAcessCode}>Auth</button>
-      <button onClick={CreateDraft}>Create Draft</button>
+
+      {
+        msgInterfaceStatus ?  <div className='msgFourm'>
+        <input ref={receiversEmail} type="text" placeholder='Enter Receivers Email Id' />
+        <input ref={subject} type="text" placeholder=' Enter subject' />
+        <input ref={msgToSend} type="text" placeholder='Message To Send' />
+        <button onClick={CreateDraft}>Send Message</button>
+      </div>
+      : null
+      }
+     
+
       <div className='tableHolder'>
 
         <Table className='database_Table' >
