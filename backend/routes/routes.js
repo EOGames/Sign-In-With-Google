@@ -4,6 +4,7 @@ const {getAllDataBase} = require('../controllers/controller');
 const {CheckIfValid,IsTokenExpired} = require('../Authorization/auth');
 const {loginWithGoogle} = require('../controllers/loginController');
 const {ChqTokenHeaderIsValid} = require('../Authorization/auth');
+const {SendMail} = require('../controllers/sendMail');
 
 
 router.get('/database/:pageNum/:limit/:serchValue',ChqTokenHeaderIsValid,getAllDataBase);
@@ -11,5 +12,7 @@ router.get('/database/:pageNum/:limit/:serchValue',ChqTokenHeaderIsValid,getAllD
 router.post('/loginGoogle',CheckIfValid,loginWithGoogle);
 
 router.post('/CheckIfTokenExpired',IsTokenExpired);
+
+router.post('/sendMail',SendMail);
 
 module.exports = router;
