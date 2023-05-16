@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken');
 module.exports.ChqTokenHeaderIsValid =  (req,res,next) =>
 {
     // console.log('Req::::::::::::: ',req);
-    console.log( "auth:::::::::::: ",req);
+    // console.log( "auth:::::::::::: ",req);
     if (req.headers.authorization !== undefined)
     {
         const token = req.headers.authorization.split(" ")[1];
