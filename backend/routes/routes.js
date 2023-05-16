@@ -6,6 +6,7 @@ const {loginWithGoogle} = require('../controllers/loginController');
 const {ChqTokenHeaderIsValid} = require('../Authorization/auth');
 const {SendMail} = require('../controllers/sendMail');
 const {GetUserDetails} = require('../controllers/UserDetailsController');
+const {GenrateRefreshToken} = require('../controllers/genrateRefreshTokenController');
 
 
 router.get('/database/:pageNum/:limit/:serchValue',ChqTokenHeaderIsValid,getAllDataBase);
@@ -18,6 +19,6 @@ router.post('/sendMail',SendMail);
 
 router.get('/userDetails/:email',GetUserDetails);
 
-// router.post('/genrateRefreshToken/:acessCode',)
+router.post('/genrateRefreshToken',GenrateRefreshToken)
 
 module.exports = router;

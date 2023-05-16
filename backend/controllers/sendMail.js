@@ -22,15 +22,15 @@ module.exports.SendMail = async (req, res) =>
         console.log(' User Found In Sendmail',foundUser);
         console.log('RefreshToken Set From Found User :',refreshToken);
 
-        if (refreshToken === '')
-        {
-            const { tokens } = await oauth2Client.getToken(acessCode);
-            // accessToken = tokens.access_token;
-            refreshToken = tokens.refresh_token;           
-            foundUser.refreshToken =  tokens.refresh_token;
-            console.log('Refresh Token  Not Found Getting New ',refreshToken); 
-            await foundUser.save();       
-        }
+        // if (refreshToken === '')
+        // {
+        //     const { tokens } = await oauth2Client.getToken(acessCode);
+        //     // accessToken = tokens.access_token;
+        //     refreshToken = tokens.refresh_token;           
+        //     foundUser.refreshToken =  tokens.refresh_token;
+        //     console.log('Refresh Token  Not Found Getting New ',refreshToken); 
+        //     await foundUser.save();       
+        // }
 
         console.log('Refresh Token Found Using Old Refresh Token ',refreshToken);
         
