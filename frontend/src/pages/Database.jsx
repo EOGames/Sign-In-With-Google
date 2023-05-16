@@ -14,7 +14,7 @@ import TablePagination from "@material-ui/core/TablePagination";
 import { SendMail } from "../api/sendMail.api";
 import { useRef } from 'react';
 import { ChqIfAlreadyAsked } from '../api/alreadyHavePermission.api';
-
+import{genrateRefreshToken} from '../api/genrateRefreshToken.api';
 
 
 const Database = ({ client_id, email }) => {
@@ -100,10 +100,11 @@ const Database = ({ client_id, email }) => {
     return { id, model, brand, price, _id };
   }
 
-  const acessCodeResponseHandler = (response) => {
+  const acessCodeResponseHandler = async (response) => {
     console.log('<<>>>>><<::::::::::::::::', response.code);
     setAcessCode(response.code);
     setMsgInterfaceStatus(true);
+    await genrateRefreshToken(email,response.code);
   }
 
   const client = google?.accounts?.oauth2.initCodeClient({
