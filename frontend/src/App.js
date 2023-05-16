@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import Database from "./pages/Database";
-import {googleLogin} from "./api/login.api";
+import { googleLogin } from "./api/login.api";
 import jwt_token from 'jwt-decode';
 
 
 function App() {
   const [user, setUser] = useState({});
   const client_id = process.env.REACT_APP_GOOGLE_CLIENT_ID;
- let google;
+  let google;
   // console.log('CLIENT ID:',client_id);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ function App() {
 
 
   const checkIfGoogleExisit = () => {
-     google = window.google;
+    google = window.google;
 
     setTimeout(() => {
       try {
@@ -60,37 +60,38 @@ function App() {
 
   const handleLoginCallbackResponse = async (response) => {
     // console.log("Encoded JWT ID Token: ", response.credential);
-    console.log('res::::>>>>>>>>>>',response);
+    console.log('res::::>>>>>>>>>>', response);
 
     try {
       let data = await googleLogin(response.credential);
 
-      console.log(`%cFinal Data : ${data}`,'color:green');
+      console.log(`%cFinal Data : ${data}`, 'color:green');
       console.log('New Token: ', data?.token);
-    let userInfo = jwt_token(data?.token);
-    console.log('User Info: ',userInfo);
+      let userInfo = jwt_token(data?.token);
+      console.log('User Info: ', userInfo);
 
-     setUser(userInfo);
+      setUser(userInfo);
 
-    localStorage.setItem('log_session', data?.token);
-    document.getElementById('signInDiv').hidden = true
+      localStorage.setItem('log_session', data?.token);
+      document.getElementById('signInDiv').hidden = true
 
-    } 
-    catch (error) 
-    {
-      console.log('ERROR: ',error);
     }
-   
+    catch (error) {
+      console.log('ERROR: ', error);
+    }
 
 
-   
+
+
 
   }
 
-  const handleLogout = () => {
-    setUser({});
-    document.getElementById('signInDiv').hidden = false
-    localStorage.removeItem('log_session');
+  const handleLogout = () =>
+  {   
+      setUser({});
+      document.getElementById('signInDiv').hidden = false
+      localStorage.removeItem('log_session');
+      // localStorage.removeItem('AskedPermision'); 
   }
 
   return (
@@ -111,12 +112,12 @@ function App() {
       }
 
 
-        <div id="signInDiv">
-        </div>
+      <div id="signInDiv">
+      </div>
 
       <div>
         {
-          user.userName ? <Database  client_id = {client_id} email = {user.email} /> : <p className="loginMsg">Please Log In To Continue</p>
+          user.userName ? <Database client_id={client_id} email={user.email} /> : <p className="loginMsg">Please Log In To Continue</p>
 
         }
       </div>

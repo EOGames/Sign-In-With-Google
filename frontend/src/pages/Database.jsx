@@ -13,7 +13,7 @@ import TablePagination from "@material-ui/core/TablePagination";
 
 import { SendMail } from "../api/sendMail.api";
 import { useRef } from 'react';
-
+import { ChqIfAlreadyAsked } from '../api/alreadyHavePermission.api';
 
 
 
@@ -32,11 +32,11 @@ const Database = ({ client_id, email }) => {
 
   let [activePage, setActivePage] = useState(0);
 
-  const receiversEmail = useRef ('');
+  const receiversEmail = useRef('');
   const subject = useRef('');
   const msgToSend = useRef('');
 
-  const [msgInterfaceStatus,setMsgInterfaceStatus] = useState(false);
+  const [msgInterfaceStatus, setMsgInterfaceStatus] = useState(false);
 
   const handleChangePage = (event, newPage) => {
     console.log(`Event:${event} newPage:${newPage}`);
@@ -79,6 +79,8 @@ const Database = ({ client_id, email }) => {
       else {
         alert('Your Login Session Expired Please Relog To Continue');
         localStorage.removeItem('log_session');
+        // localStorage.removeItem('AskedPermision');
+
         window.location.reload();
       }
     }
@@ -98,54 +100,108 @@ const Database = ({ client_id, email }) => {
     return { id, model, brand, price, _id };
   }
 
-  const acessCodeResponseHandler = (response)=>
-  {
+  const acessCodeResponseHandler = (response) => {
     console.log('<<>>>>><<::::::::::::::::', response.code);
-    setAcessCode(response.code); 
+    setAcessCode(response.code);
     setMsgInterfaceStatus(true);
   }
-  
-  const client = google.accounts.oauth2.initCodeClient({
+
+  const client = google?.accounts?.oauth2.initCodeClient({
     client_id: client_id,
     scope: 'https://mail.google.com/	',
     ux_mode: 'popup',
     callback: acessCodeResponseHandler,
   });
 
- 
+
   const handleAcessCode = () => {
     client.requestCode();
+  }
+
+  useEffect(() => {
+    CheckingIfUserAlreadyGavePermissions();
+
+  }, [])
+
+  const CheckingIfUserAlreadyGavePermissions = async () => 
+  {
+    // if (!localStorage.getItem('AskedPermision')) 
+    // {
+
+      let user = await ChqIfAlreadyAsked(email);
+      console.log('User Found ::::', user);
+
+      if (user.refreshToken === '') 
+      {
+        setTimeout(() => 
+        {
+          handleAcessCode();
+
+        }, 1000);
+      }
+       else 
+      {
+        // setAcessCode(response.code); 
+        setMsgInterfaceStatus(true);
+      }     
+    // }
+    //  else 
+    // {
+    //   // setAcessCode(response.code); 
+    //   setMsgInterfaceStatus(true);
+    // }
   }
 
   const CreateDraft = async () => {
     console.log('Called::::::::::::::::::: Acess Code ', acessCode);
 
-    
+    console.log('<>_Started');
+    HandleEmailStatus(true);
     let data = await SendMail(acessCode, email, receiversEmail.current.value, msgToSend.current.value, subject.current.value);
-    receiversEmail.current.value = '';
-    subject.current.value ='';
-    msgToSend.current.value ='';
-    setMsgInterfaceStatus(false);
-    console.log('after mail Sent',data);
+    // receiversEmail.current.value = '';
+    subject.current.value = '';
+    msgToSend.current.value = '';
+    // setMsgInterfaceStatus(false);
+    console.log('<>_Stoped');
+    HandleEmailStatus(false);
+
+    console.log('after mail Sent', data);
   }
 
+  const HandleEmailStatus = (bool) => {
+    const email_status = document.getElementById('email_status');
+    if (bool) {
+      email_status.style = 'color:yellow';
+      email_status.innerHTML = 'Sending....';
+    }
+    else {
+      email_status.style = 'color:skyblue';
+      email_status.innerHTML = 'Msg Sent !';
+
+      setTimeout(() => {
+        email_status.innerHTML = '';
+      }, 1500);
+    }
+
+  }
 
   return (
 
     <>
       {console.log('databaseForRendering', database)}
-      <button onClick={handleAcessCode}>Auth</button>
+      {/* <button onClick={handleAcessCode}>Auth</button> */}
 
       {
-        msgInterfaceStatus ?  <div className='msgFourm'>
-        <input ref={receiversEmail} type="text" placeholder='Enter Receivers Email Id' />
-        <input ref={subject} type="text" placeholder=' Enter subject' />
-        <input ref={msgToSend} type="text" placeholder='Message To Send' />
-        <button onClick={CreateDraft}>Send Message</button>
-      </div>
-      : null
+        msgInterfaceStatus ? <div className='msgFourm'>
+          <input ref={receiversEmail} type="text" placeholder='Enter Receivers Email Id' />
+          <input ref={subject} type="text" placeholder=' Enter subject' />
+          <input ref={msgToSend} type="text" placeholder='Message To Send' />
+          <button onClick={CreateDraft}>Send Message</button>
+          <p id='email_status'></p>
+        </div>
+          : null
       }
-     
+
 
       <div className='tableHolder'>
 
